@@ -1,0 +1,30 @@
+"""Configuration for the standard Python ev3dev2 implementation."""
+
+# Measured reflected-light reference values.
+BLACK_REFERENCE = 3
+MIDDLE_REFERENCE = 15
+WHITE_REFERENCE = 22
+
+# Classification boundaries halfway between the measured references.
+BLACK_VALUE = (BLACK_REFERENCE + MIDDLE_REFERENCE) // 2
+WHITE_VALUE = (MIDDLE_REFERENCE + WHITE_REFERENCE + 1) // 2
+
+FORWARD_SPEED_PERCENT = 25
+FORWARD_TIME_SECONDS = 0.25
+TURN_INNER_SPEED_PERCENT = -10
+TURN_OUTER_SPEED_PERCENT = 20
+TURN_STEP_SECONDS = 0.10
+MAX_TURN_STEPS = 20
+
+# InfraredSensor.proximity is 0-100; 100 is approximately 70 cm.
+OBSTACLE_PROXIMITY = 15
+OBSTACLE_TURN_DEGREES = 20
+OBSTACLE_TURN_STEPS = 5
+
+ALPHA = 0.1
+GAMMA = 0.9
+TEMPERATURE = 1000
+MIN_EPSILON = 0.01
+
+Q_TABLE_FILE = "q_table.pkl"
+CHECKPOINT_FILE = "training_checkpoint.pkl"
