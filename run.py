@@ -25,8 +25,7 @@ def run():
     try:
         while True:
             if ir_sensor.proximity < OBSTACLE_PROXIMITY:
-                robot.off(brake=True)
-                sound.speak("Avoiding obstacle").wait()
+                sound.speak("Avoiding obstacle")
                 avoid_obstacle(robot, sound, mode)
                 mode = not mode
                 light_state = get_light_state(light_sensor)

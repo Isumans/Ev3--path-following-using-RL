@@ -8,6 +8,8 @@ from config import (
     FORWARD_SPEED_PERCENT,
     FORWARD_TIME_SECONDS,
     MAX_TURN_STEPS,
+    OBSTACLE_REVERSE_SECONDS,
+    OBSTACLE_REVERSE_SPEED_PERCENT,
     OBSTACLE_TURN_DEGREES,
     OBSTACLE_TURN_STEPS,
     TURN_INNER_SPEED_PERCENT,
@@ -72,11 +74,18 @@ def execute_action(action, robot, light_sensor, previous_state):
 
 
 def avoid_obstacle(robot, sound, mode):
-    direction = -1 if mode else 1
+    robot.on_for_seconds(
+        SpeedPercent(OBSTACLE_REVERSE_SPEED_PERCENT),
+        SpeedPercent(OBSTACLE_REVERSE_SPEED_PERCENT),
+        OBSTACLE_REVERSE_SECONDS,
+        brake=True,
+        block=True,
+    )
+
     for _ in range(OBSTACLE_TURN_STEPS):
         robot.on_for_degrees(
-            SpeedPercent(direction * 20),
-            SpeedPercent(direction * -20),
+            SpeedPercent(20),
+            SpeedPercent(-20),
             OBSTACLE_TURN_DEGREES,
             brake=True,
             block=True,
