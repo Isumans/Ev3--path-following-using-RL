@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Follow the line using a Q-table trained with python-ev3dev2."""
 
-from actions import RIGHT, avoid_obstacle, execute_action
+from actions import RIGHT, avoid_obstacle, execute_action, stop_requested
 from config import OBSTACLE_PROXIMITY
 from hardware import ir_sensor, light_sensor, robot, sound
 from qlearning import get_best_action
@@ -24,10 +24,11 @@ def run():
 
     try:
         while True:
+            if stop_requested():
+                raise KeyboardInterrupt
             if ir_sensor.proximity < OBSTACLE_PROXIMITY:
                 sound.speak("Avoiding obstacle")
-                avoid_obstacle(robot, sound, mode)
-                mode = not mode
+                avoid_obstacle(robot, sound, light_sensor)
                 light_state = get_light_state(light_sensor)
                 continue
 
